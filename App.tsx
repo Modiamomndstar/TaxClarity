@@ -2,6 +2,7 @@ import 'react-native-gesture-handler';
 import 'react-native-url-polyfill/auto';
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator, StatusBar, Platform } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 import { AppNavigator } from './src/navigation';
 import { useAuthStore } from './src/store';
@@ -71,12 +72,14 @@ export default function App() {
   }
 
   return (
-    <View style={[{ flex: 1 }, webStyles]}>
-      <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-        <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
-        <AppNavigator />
-      </SafeAreaProvider>
-    </View>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <View style={[{ flex: 1 }, webStyles]}>
+        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+          <StatusBar barStyle="dark-content" backgroundColor={colors.white} />
+          <AppNavigator />
+        </SafeAreaProvider>
+      </View>
+    </GestureHandlerRootView>
   );
 }
 

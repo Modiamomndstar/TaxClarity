@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="TaxClarity NG - Your personal guide to Nigeria's 2026 tax reforms. Understand which taxes apply to you and get step-by-step compliance guidance.">
-    
+
     <!-- Google Analytics - Replace G-XXXXXXXXXX with your Measurement ID -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
@@ -12,7 +12,7 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
         gtag('config', 'G-XXXXXXXXXX');
-        
+
         // Track APK download
         function trackDownload() {
             gtag('event', 'download', {
@@ -38,26 +38,26 @@
     </script>
     <meta name="keywords" content="Nigeria tax, tax reform 2026, FIRS, tax compliance, Nigerian taxes, personal tax guide">
     <meta name="author" content="TaxClarity NG">
-    
+
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="TaxClarity NG - Navigate Nigeria's 2026 Tax Reforms">
     <meta property="og:description" content="Your personal guide to understanding which taxes apply to you and how to stay compliant.">
     <meta property="og:image" content="assets/og-image.png">
     <meta property="og:url" content="https://modiamomndstar.github.io/TaxClarity">
     <meta property="og:type" content="website">
-    
+
     <title>TaxClarity NG - Nigeria's Tax Reform Guide</title>
-    
+
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         :root {
             --primary: #059669;
             --primary-dark: #047857;
@@ -68,14 +68,14 @@
             --light: #F3F4F6;
             --white: #FFFFFF;
         }
-        
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             line-height: 1.6;
             color: var(--dark);
             background: var(--white);
         }
-        
+
         /* Navigation */
         nav {
             position: fixed;
@@ -87,7 +87,7 @@
             padding: 1rem 2rem;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
-        
+
         .nav-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -95,7 +95,7 @@
             justify-content: space-between;
             align-items: center;
         }
-        
+
         .logo {
             display: flex;
             align-items: center;
@@ -105,7 +105,7 @@
             color: var(--primary);
             text-decoration: none;
         }
-        
+
         .logo-icon {
             width: 40px;
             height: 40px;
@@ -117,24 +117,24 @@
             color: white;
             font-weight: 800;
         }
-        
+
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
         }
-        
+
         .nav-links a {
             color: var(--gray);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
         }
-        
+
         .nav-links a:hover {
             color: var(--primary);
         }
-        
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -143,7 +143,7 @@
             padding: 6rem 2rem 4rem;
             background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #d1fae5 100%);
         }
-        
+
         .hero-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -152,7 +152,7 @@
             gap: 4rem;
             align-items: center;
         }
-        
+
         .hero-content h1 {
             font-size: 3.5rem;
             font-weight: 800;
@@ -160,24 +160,24 @@
             margin-bottom: 1.5rem;
             color: var(--dark);
         }
-        
+
         .hero-content h1 span {
             color: var(--primary);
         }
-        
+
         .hero-content p {
             font-size: 1.25rem;
             color: var(--gray);
             margin-bottom: 2rem;
             max-width: 500px;
         }
-        
+
         .hero-buttons {
             display: flex;
             gap: 1rem;
             flex-wrap: wrap;
         }
-        
+
         .btn {
             display: inline-flex;
             align-items: center;
@@ -191,33 +191,33 @@
             cursor: pointer;
             border: none;
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
             box-shadow: 0 4px 14px rgba(5, 150, 105, 0.4);
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(5, 150, 105, 0.5);
         }
-        
+
         .btn-secondary {
             background: var(--white);
             color: var(--dark);
             border: 2px solid var(--light);
         }
-        
+
         .btn-secondary:hover {
             border-color: var(--primary);
             color: var(--primary);
         }
-        
+
         .hero-image {
             position: relative;
         }
-        
+
         .phone-mockup {
             width: 100%;
             max-width: 350px;
@@ -225,7 +225,7 @@
             display: block;
             filter: drop-shadow(0 25px 50px rgba(0,0,0,0.15));
         }
-        
+
         .hero-badge {
             position: absolute;
             top: 2rem;
@@ -240,31 +240,31 @@
             font-weight: 600;
             color: var(--primary);
         }
-        
+
         /* Features Section */
         .features {
             padding: 6rem 2rem;
             background: var(--white);
         }
-        
+
         .section-header {
             text-align: center;
             max-width: 600px;
             margin: 0 auto 4rem;
         }
-        
+
         .section-header h2 {
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
             color: var(--dark);
         }
-        
+
         .section-header p {
             color: var(--gray);
             font-size: 1.125rem;
         }
-        
+
         .features-grid {
             max-width: 1200px;
             margin: 0 auto;
@@ -272,19 +272,19 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
-        
+
         .feature-card {
             padding: 2rem;
             border-radius: 16px;
             background: var(--light);
             transition: all 0.3s;
         }
-        
+
         .feature-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
-        
+
         .feature-icon {
             width: 60px;
             height: 60px;
@@ -296,24 +296,24 @@
             margin-bottom: 1.5rem;
             font-size: 1.5rem;
         }
-        
+
         .feature-card h3 {
             font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: 0.75rem;
             color: var(--dark);
         }
-        
+
         .feature-card p {
             color: var(--gray);
         }
-        
+
         /* How It Works */
         .how-it-works {
             padding: 6rem 2rem;
             background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
         }
-        
+
         .steps {
             max-width: 1000px;
             margin: 0 auto;
@@ -321,12 +321,12 @@
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
         }
-        
+
         .step {
             text-align: center;
             padding: 2rem;
         }
-        
+
         .step-number {
             width: 50px;
             height: 50px;
@@ -340,18 +340,18 @@
             font-size: 1.25rem;
             margin: 0 auto 1.5rem;
         }
-        
+
         .step h3 {
             font-size: 1.25rem;
             font-weight: 600;
             margin-bottom: 0.75rem;
             color: var(--dark);
         }
-        
+
         .step p {
             color: var(--gray);
         }
-        
+
         /* CTA Section */
         .cta {
             padding: 6rem 2rem;
@@ -359,13 +359,13 @@
             text-align: center;
             color: white;
         }
-        
+
         .cta h2 {
             font-size: 2.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
         }
-        
+
         .cta p {
             font-size: 1.25rem;
             opacity: 0.9;
@@ -374,16 +374,16 @@
             margin-left: auto;
             margin-right: auto;
         }
-        
+
         .cta .btn-primary {
             background: white;
             color: var(--primary);
         }
-        
+
         .cta .btn-primary:hover {
             background: var(--light);
         }
-        
+
         /* Footer */
         footer {
             padding: 3rem 2rem;
@@ -391,59 +391,59 @@
             color: var(--gray);
             text-align: center;
         }
-        
+
         footer a {
             color: var(--accent);
             text-decoration: none;
         }
-        
+
         /* Mobile Responsive */
         @media (max-width: 768px) {
             .hero-container {
                 grid-template-columns: 1fr;
                 text-align: center;
             }
-            
+
             .hero-content h1 {
                 font-size: 2.5rem;
             }
-            
+
             .hero-content p {
                 margin-left: auto;
                 margin-right: auto;
             }
-            
+
             .hero-buttons {
                 justify-content: center;
             }
-            
+
             .hero-image {
                 order: -1;
             }
-            
+
             .phone-mockup {
                 max-width: 250px;
             }
-            
+
             .nav-links {
                 display: none;
             }
-            
+
             .section-header h2 {
                 font-size: 2rem;
             }
-            
+
             .cta h2 {
                 font-size: 2rem;
             }
         }
-        
+
         /* Download badge animation */
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.05); }
         }
-        
+
         .download-pulse {
             animation: pulse 2s infinite;
         }
@@ -575,7 +575,7 @@
     <section class="cta" id="download">
         <h2>Ready to Simplify Your Taxes?</h2>
         <p>Download TaxClarity now and take the confusion out of Nigeria's 2026 tax reforms.</p>
-        <a href="https://github.com/Modiamomndstar/TaxClarity/releases/latest/download/taxclarity-ng.apk" 
+        <a href="https://github.com/Modiamomndstar/TaxClarity/releases/latest/download/taxclarity-ng.apk"
            class="btn btn-primary download-pulse"
            onclick="trackDownload()">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -592,8 +592,8 @@
     <footer>
         <p>&copy; 2026 TaxClarity NG. All rights reserved.</p>
         <p style="margin-top: 0.5rem;">
-            <a href="#">Privacy Policy</a> • 
-            <a href="#">Terms of Service</a> • 
+            <a href="#">Privacy Policy</a> •
+            <a href="#">Terms of Service</a> •
             <a href="mailto:support@taxclarity.ng">Contact</a>
         </p>
     </footer>

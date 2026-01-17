@@ -262,6 +262,16 @@ export const useAppStore = create<AppStore>((set, get) => ({
 
     // Create user action items from templates
     if (templates && templates.length > 0) {
+      // First, delete any existing action items for this user to prevent duplicates
+      const { error: deleteError } = await supabase
+        .from("user_action_items")
+        .delete()
+        .eq("user_id", user.id);
+
+      if (deleteError) {
+        console.error("Error deleting existing action items:", deleteError);
+      }
+
       const actionItemsToInsert = templates.map((template: any) => ({
         user_id: user.id,
         tax_rule_id: matchingRule.id,

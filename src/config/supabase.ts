@@ -1,14 +1,19 @@
 import "react-native-url-polyfill/auto";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createClient } from "@supabase/supabase-js";
+import Constants from "expo-constants";
 
 // Supabase Configuration
-// Option 1: Use environment variables (recommended)
-// Option 2: Replace these directly with your Supabase credentials
+// Get from app.config.js extra for EAS builds, fallback to env vars for development
 const SUPABASE_URL =
-  process.env.EXPO_PUBLIC_SUPABASE_URL || "YOUR_SUPABASE_URL";
+  Constants.expoConfig?.extra?.supabaseUrl ||
+  process.env.EXPO_PUBLIC_SUPABASE_URL ||
+  "https://vwuhpsxincuwhztcyfre.supabase.co";
+
 const SUPABASE_ANON_KEY =
-  process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY || "YOUR_SUPABASE_ANON_KEY";
+  Constants.expoConfig?.extra?.supabaseAnonKey ||
+  process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ||
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3dWhwc3hpbmN1d2h6dGN5ZnJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1ODE5MzMsImV4cCI6MjA4NDE1NzkzM30.DfE-BNtJhyRG2o9wl1dBa-c3kSNEOoTwBLTwEPhrP94";
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: {

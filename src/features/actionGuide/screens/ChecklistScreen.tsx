@@ -131,7 +131,7 @@ export const ChecklistScreen: React.FC<ChecklistScreenProps> = ({ navigation }) 
           <Text style={[styles.actionTitle, item.completed && styles.actionTitleCompleted]}>
             {item.title}
           </Text>
-          <Text style={styles.actionDescription} numberOfLines={2}>
+          <Text style={styles.actionDescription}>
             {item.description}
           </Text>
           <View style={styles.actionMeta}>
@@ -422,6 +422,7 @@ const styles = StyleSheet.create({
     fontSize: typography.bodySmall,
     color: colors.textSecondary,
     marginBottom: spacing.sm,
+    lineHeight: 20,
   },
   actionMeta: {
     flexDirection: 'row',
