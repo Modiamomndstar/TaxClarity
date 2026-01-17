@@ -217,7 +217,12 @@ export const useAppStore = create<AppStore>((set, get) => ({
 
     console.log("Available rules:", rules?.length);
     console.log("Looking for work_type:", profile.work_type);
-    console.log("Income range:", profile.income_range_min, "-", profile.income_range_max);
+    console.log(
+      "Income range:",
+      profile.income_range_min,
+      "-",
+      profile.income_range_max
+    );
 
     // Find matching rule based on profile
     // Use the user's MAX income to find the appropriate tax bracket
@@ -228,7 +233,9 @@ export const useAppStore = create<AppStore>((set, get) => ({
       const incomeMatch =
         profile.income_range_max >= rule.income_min &&
         profile.income_range_max <= rule.income_max;
-      console.log(`Rule ${rule.rule_code}: applies=${appliesToMatch}, income=${incomeMatch}`);
+      console.log(
+        `Rule ${rule.rule_code}: applies=${appliesToMatch}, income=${incomeMatch}`
+      );
       return appliesToMatch && incomeMatch;
     });
 

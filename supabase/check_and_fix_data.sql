@@ -6,12 +6,12 @@
 SELECT COUNT(*) as rule_count FROM tax_rules;
 
 -- 2. See all tax rules with their work types
-SELECT id, rule_code, applies_to, income_min, income_max, tax_rate, exemption_status 
-FROM tax_rules 
+SELECT id, rule_code, applies_to, income_min, income_max, tax_rate, exemption_status
+FROM tax_rules
 ORDER BY applies_to, income_min;
 
 -- 3. Check action item templates per rule
-SELECT 
+SELECT
   r.rule_code,
   r.applies_to,
   COUNT(t.id) as template_count
@@ -21,7 +21,7 @@ GROUP BY r.id, r.rule_code, r.applies_to
 ORDER BY r.applies_to, r.rule_code;
 
 -- 4. Check if there are action items for your user and what rule they belong to
-SELECT 
+SELECT
   uai.title,
   uai.priority,
   r.rule_code,
@@ -54,7 +54,7 @@ DELETE FROM tax_rules;
 SELECT rule_code, applies_to, income_min, income_max FROM tax_rules ORDER BY applies_to, income_min;
 
 -- Should show templates for each rule
-SELECT 
+SELECT
   r.rule_code,
   r.applies_to[1] as work_type,
   t.title,
