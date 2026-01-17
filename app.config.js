@@ -43,13 +43,12 @@ export default {
         },
       },
     },
-    plugins: [],
+    plugins: ["expo-font"],
 
-    // Extra configuration
+    // EAS configuration
     extra: {
-      // Ensure we're not using Hermes transforms
       eas: {
-        projectId: "taxclarity-ng",
+        projectId: "033f5853-ca6a-479b-ad25-e822c80b6a5a",
       },
     },
   },
