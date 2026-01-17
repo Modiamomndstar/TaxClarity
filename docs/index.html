@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="TaxClarity NG - Your personal guide to Nigeria's 2026 tax reforms. Understand which taxes apply to you and get step-by-step compliance guidance.">
 
-    <!-- Google Analytics - Replace G-XXXXXXXXXX with your Measurement ID -->
+    <!-- Google Analytics 4 - Replace G-XXXXXXXXXX with your Measurement ID -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -13,28 +13,72 @@
         gtag('js', new Date());
         gtag('config', 'G-XXXXXXXXXX');
 
+        // Supabase config
+        const SUPABASE_URL = 'https://vwuhpsxincuwhztcyfre.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3dWhwc3hpbmN1d2h6dGN5ZnJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1ODE5MzMsImV4cCI6MjA4NDE1NzkzM30.DfE-BNtJhyRG2o9wl1dBa-c3kSNEOoTwBLTwEPhrP94';
+
+        // Generate session ID for unique visitor tracking
+        function getSessionId() {
+            let sessionId = sessionStorage.getItem('tc_session_id');
+            if (!sessionId) {
+                sessionId = 'sess_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+                sessionStorage.setItem('tc_session_id', sessionId);
+            }
+            return sessionId;
+        }
+
+        // Track page view
+        function trackPageView() {
+            fetch(SUPABASE_URL + '/rest/v1/page_views', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                    'Prefer': 'return=minimal'
+                },
+                body: JSON.stringify({
+                    page: '/docs',
+                    referrer: document.referrer || null,
+                    user_agent: navigator.userAgent,
+                    screen_width: window.screen.width,
+                    screen_height: window.screen.height,
+                    session_id: getSessionId()
+                })
+            }).catch(() => {}); // Silent fail
+        }
+
         // Track APK download
         function trackDownload() {
+            // Google Analytics event
             gtag('event', 'download', {
                 'event_category': 'APK',
                 'event_label': 'TaxClarity NG Android',
                 'value': 1
             });
-            // Also track with Supabase
-            fetch('https://vwuhpsxincuwhztcyfre.supabase.co/rest/v1/download_stats', {
+
+            // Supabase tracking
+            fetch(SUPABASE_URL + '/rest/v1/download_stats', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3dWhwc3hpbmN1d2h6dGN5ZnJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1ODE5MzMsImV4cCI6MjA4NDE1NzkzM30.DfE-BNtJhyRG2o9wl1dBa-c3kSNEOoTwBLTwEPhrP94',
-                    'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ3dWhwc3hpbmN1d2h6dGN5ZnJlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg1ODE5MzMsImV4cCI6MjA4NDE1NzkzM30.DfE-BNtJhyRG2o9wl1dBa-c3kSNEOoTwBLTwEPhrP94'
+                    'apikey': SUPABASE_ANON_KEY,
+                    'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+                    'Prefer': 'return=minimal'
                 },
                 body: JSON.stringify({
                     platform: 'android',
-                    source: 'landing_page',
-                    user_agent: navigator.userAgent
+                    source: 'docs_page',
+                    user_agent: navigator.userAgent,
+                    referrer: document.referrer || null
                 })
             }).catch(() => {}); // Silent fail
+
+            return true;
         }
+
+        // Track page view on load
+        document.addEventListener('DOMContentLoaded', trackPageView);
     </script>
     <meta name="keywords" content="Nigeria tax, tax reform 2026, FIRS, tax compliance, Nigerian taxes, personal tax guide">
     <meta name="author" content="TaxClarity NG">
