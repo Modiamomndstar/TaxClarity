@@ -55,7 +55,13 @@ export const RegisterScreen: React.FC<RegisterScreenProps> = ({ navigation }) =>
     setIsLoading(true);
     try {
       await signUp(data.email, data.password, data.fullName);
-      // Navigation will happen automatically via auth state change
+      // If signUp requires email verification the store sets authenticated=false
+      // and we expose a pending flag — navigate to the pending screen so user sees instructions.
+      const pending = (window as any).__tc_pending_verification === true;
+      if (pending) {
+        navigation.replace('ConfirmationPending' as any);
+      }
+      // Otherwise auth state change will navigate into the app
     } catch (error: any) {
       Alert.alert(
         'Registration Failed',

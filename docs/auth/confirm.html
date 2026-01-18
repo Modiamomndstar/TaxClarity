@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TaxClarity — Email confirmation</title>
+  <style>body{font-family:Inter,system-ui,Segoe UI,Arial;margin:0;background:#f7faf9;color:#0f172a;display:flex;align-items:center;justify-content:center;height:100vh}.card{background:#fff;padding:28px;border-radius:12px;box-shadow:0 8px 30px rgba(2,6,23,.08);max-width:720px;width:100%}.h{font-size:20px;margin:0 0 8px}.p{color:#475569;margin:0 0 20px} .btn{background:#059669;color:#fff;padding:10px 14px;border-radius:8px;border:0;cursor:pointer} .muted{color:#94a3b8;font-size:13px;margin-top:14px}</style>
+</head>
+<body>
+  <div class="card">
+    <h1 class="h">Verifying your email…</h1>
+    <p class="p" id="message">Please wait while we verify your email address. You will be redirected when verification completes.</p>
+    <div id="actions" style="display:flex;gap:12px;align-items:center">
+      <button class="btn" id="openApp">Open App</button>
+      <a id="support" href="mailto:support@taxclarity.ng" style="color:#0f172a;text-decoration:underline">Contact support</a>
+    </div>
+    <div class="muted">If you were sent a link that points to <code>localhost</code>, please contact support — we can complete verification manually.</div>
+  </div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const token = params.get('token') || params.get('confirmation');
+  const messageEl = document.getElementById('message');
+  const openApp = document.getElementById('openApp');
+
+  async function verifyToken(t){
+    if(!t){ messageEl.textContent = 'No verification token found in the link. Please check the link from your email.'; return; }
+    try{
+      messageEl.textContent = 'Verifying — please wait...';
+      // Call Supabase verify endpoint
+      const resp = await fetch('/auth/v1/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: t })
+      });
+      if(resp.ok){
+        messageEl.textContent = 'Email verified — you can now return to the app and sign in.';
+        setTimeout(()=>{ window.location.href = '/'; }, 1800);
+      } else {
+        const txt = await resp.text();
+        messageEl.textContent = 'Verification failed. The token may be expired or already used.' + (txt? ' ('+txt+')':'');
+      }
+    }catch(err){
+      messageEl.textContent = 'Verification could not be completed automatically. Please open the app and use the "Resend verification" option.';
+      console.error(err);
+    }
+  }
+
+  openApp.addEventListener('click', ()=>{
+    // deep-link to mobile app (falls back to web)
+    window.location.href = 'taxclarity://auth/confirm' ;
+    setTimeout(()=>{ window.location.href = '/'; }, 800);
+  });
+
+  // Attempt automatic verification
+  verifyToken(token);
+</script>
+</body>
+</html>

@@ -6,7 +6,7 @@ import { useAuthStore } from '../store';
 import { colors } from '../theme';
 
 // Auth Screens
-import { WelcomeScreen, RegisterScreen, LoginScreen } from '../features/auth/screens';
+import { WelcomeScreen, RegisterScreen, LoginScreen, ConfirmationPendingScreen } from '../features/auth/screens';
 
 // Profile Screens
 import { QuestionnaireScreen } from '../features/profile/screens';
@@ -49,6 +49,18 @@ const AuthNavigator: React.FC = () => {
         options={{
           headerShown: true,
           title: 'Create Account',
+          headerBackTitle: 'Back',
+          headerTintColor: colors.primary,
+          headerStyle: { backgroundColor: colors.white },
+          headerShadowVisible: false,
+        }}
+      />
+      <AuthStack.Screen
+        name="ConfirmationPending"
+        component={ConfirmationPendingScreen}
+        options={{
+          headerShown: true,
+          title: 'Verify Email',
           headerBackTitle: 'Back',
           headerTintColor: colors.primary,
           headerStyle: { backgroundColor: colors.white },

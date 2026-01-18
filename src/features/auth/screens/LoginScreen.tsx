@@ -50,10 +50,30 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ navigation }) => {
       await signIn(data.email, data.password);
       // Navigation will happen automatically via auth state change
     } catch (error: any) {
-      Alert.alert(
-        'Login Failed',
-        error.message || 'Invalid email or password'
-      );
+      const msg = error?.message || 'Invalid email or password';
+      // If error indicates unverified email, offer to resend verification
+      if (msg.toLowerCase().includes('verify your email') || msg.toLowerCase().includes('verify')) {
+        Alert.alert(
+          'Email not verified',
+          msg,
+          [
+            { text: 'Resend email', onPress: async () => {
+              try {
+                setIsLoading(true);
+                await (useAuthStore.getState() as any).resendVerification();
+                Alert.alert('Verification Sent', 'Check your inbox for the new link.');
+              } catch (err: any) {
+                Alert.alert('Unable to resend', err.message || 'Try again later');
+              } finally {
+                setIsLoading(false);
+              }
+            }},
+            { text: 'OK', style: 'cancel' }
+          ]
+        );
+      } else {
+        Alert.alert('Login Failed', msg);
+      }
     } finally {
       setIsLoading(false);
     }

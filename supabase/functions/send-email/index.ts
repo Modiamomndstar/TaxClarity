@@ -52,7 +52,7 @@ const templates = {
 
         <p style="color: #999; font-size: 12px; text-align: center;">
           TaxClarity NG - Making Nigerian Taxes Simple<br/>
-          <a href="https://modiamomndstar.github.io/TaxClarity/" style="color: #008751;">Visit our website</a>
+          <a href="${Deno.env.get('SITE_URL') || 'https://modiamomndstar.github.io/TaxClarity/'}" style="color: #008751;">Visit our website</a>
         </p>
       </div>
     `,

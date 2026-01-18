@@ -81,7 +81,11 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       },
     });
     if (error) throw error;
+
+    // If the user is returned but not yet confirmed, do NOT mark authenticated.
+    // Instead show verification-pending UI and provide a resend option.
     if (data.user) {
+      const isConfirmed = Boolean((data.user as any).email_confirmed_at);
       set({
         user: {
           id: data.user.id,
@@ -90,8 +94,14 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
           created_at: data.user.created_at,
         },
         session: data.session,
-        isAuthenticated: true,
+        isAuthenticated: isConfirmed,
       });
+
+      // expose flag by storing null user but a pending state via localStorage so UI can show instructions
+      if (!isConfirmed) {
+        // keep user in store but mark not authenticated; UI should navigate to Pending screen
+        (window as any).__tc_pending_verification = true;
+      }
     }
   },
 
@@ -101,6 +111,15 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
       password,
     });
     if (error) throw error;
+
+    // Prevent access if email not verified (enforce server-side too)
+    const isConfirmed = Boolean((data.user as any)?.email_confirmed_at);
+    if (!isConfirmed) {
+      // Sign the user out of any session returned
+      try { await supabase.auth.signOut(); } catch {}
+      throw new Error('Please verify your email before signing in. Check your inbox for the confirmation link.');
+    }
+
     if (data.user) {
       set({
         user: {
@@ -119,6 +138,16 @@ export const useAuthStore = create<AuthStore>((set, get) => ({
     const { error } = await supabase.auth.signOut();
     if (error) throw error;
     set({ user: null, session: null, isAuthenticated: false });
+  },
+
+  // Resend verification (client-side fallback — sends a magic link)
+  resendVerification: async () => {
+    const user = get().user;
+    if (!user?.email) throw new Error('No email available to resend verification');
+    // Use magic link as a practical way to verify email/address ownership
+    const { data, error } = await supabase.auth.signInWithOtp({ email: user.email });
+    if (error) throw error;
+    return data;
   },
 
   setUser: (user) => set({ user }),
